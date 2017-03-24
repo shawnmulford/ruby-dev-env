@@ -1,0 +1,6 @@
+---
+# ansible-playbook -vv -e '{"hosts": "rhel"}' ./build.yml
+- hosts: "{{ hosts }}"
+
+  roles:
+  - ruby-dev-env

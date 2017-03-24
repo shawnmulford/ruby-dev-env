@@ -1,0 +1,33 @@
+---
+# tasks file for ruby-dev-env
+- name: test connection
+  ping:
+
+- name: install required yum pkgs
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - ruby
+  - rubygems
+  - autoconf
+  - "@Developer tools"
+  - gcc
+  - yum-utils
+
+- name: yum install the developer group
+  command: yum groupinstall 'Development Tools' -y
+  
+- name: find gem install location
+  command: which gem
+  register: gemlocation
+
+- name: install required gems
+  gem:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - rest-client
+#  environment:
+#  - PATH: "{{ ansible_env.PATH }}:{{ gemlocation.stdout }}"
+
